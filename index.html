@@ -4,265 +4,199 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TheInvestmentWiki</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=DM+Sans:opsz,wght@9..40,400;9..40,500&display=swap" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
-            font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
-            background: #fafaf8;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+            background: #ffffff;
             color: #1a1a1a;
             min-height: 100vh;
             -webkit-font-smoothing: antialiased;
         }
 
         .container {
-            max-width: 860px;
+            max-width: 960px;
             margin: 0 auto;
             padding: 0 32px;
         }
 
         header {
-            padding: 96px 0 56px;
-            border-bottom: 2px solid #1a1a1a;
+            padding: 96px 0 52px;
+            border-bottom: 1px solid #e5e5e5;
             margin-bottom: 40px;
         }
 
         h1 {
-            font-family: 'Source Serif 4', Georgia, serif;
-            font-size: 44px;
+            font-size: 36px;
             font-weight: 600;
-            letter-spacing: -1px;
-            margin-bottom: 12px;
-            line-height: 1.1;
+            letter-spacing: -0.5px;
+            margin-bottom: 10px;
         }
 
         .subtitle {
             font-size: 17px;
-            color: #777;
-            line-height: 1.6;
-            max-width: 480px;
+            color: #666;
+            line-height: 1.5;
         }
 
         .stats {
             display: flex;
             gap: 32px;
-            margin-top: 28px;
-            padding-top: 24px;
-            border-top: 1px solid #e8e8e4;
+            margin-top: 24px;
+            font-size: 15px;
+            color: #999;
         }
 
-        .stat-value {
-            font-size: 22px;
-            font-weight: 500;
+        .stats span strong {
             color: #1a1a1a;
-            line-height: 1;
-        }
-
-        .stat-label {
-            font-size: 13px;
-            color: #aaa;
-            margin-top: 4px;
-            letter-spacing: 0.3px;
+            font-weight: 600;
         }
 
         .toolbar {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 24px;
+            margin-bottom: 20px;
             gap: 16px;
         }
 
-        .search-wrap {
+        input[type="text"] {
             flex: 1;
             max-width: 340px;
-            position: relative;
-        }
-
-        .search-wrap svg {
-            position: absolute;
-            left: 14px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: #bbb;
-            pointer-events: none;
-        }
-
-        input[type="text"] {
-            width: 100%;
-            padding: 11px 16px 11px 42px;
-            background: #fff;
-            border: 1px solid #e0e0dc;
-            border-radius: 8px;
-            font-size: 15px;
+            padding: 10px 14px;
+            border: 1px solid #e5e5e5;
+            border-radius: 6px;
+            font-size: 16px;
             font-family: inherit;
             color: #1a1a1a;
             outline: none;
-            transition: border-color 0.2s, box-shadow 0.2s;
         }
 
         input[type="text"]:focus {
             border-color: #1a1a1a;
-            box-shadow: 0 0 0 3px rgba(26, 26, 26, 0.06);
         }
 
-        input[type="text"]::placeholder { color: #c0c0bc; }
+        input[type="text"]::placeholder {
+            color: #bbb;
+        }
 
-        .contribute-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            padding: 11px 22px;
-            background: #1a1a1a;
-            border: none;
-            border-radius: 8px;
-            color: #fff;
-            font-family: inherit;
-            font-size: 14px;
-            font-weight: 500;
+        .toolbar a {
+            font-size: 15px;
+            color: #666;
             text-decoration: none;
-            transition: background 0.2s;
             white-space: nowrap;
         }
 
-        .contribute-btn:hover { background: #333; }
+        .toolbar a:hover {
+            color: #1a1a1a;
+        }
 
         /* File list */
-        .files { list-style: none; }
+        .files {
+            list-style: none;
+        }
 
-        .files li { border-bottom: 1px solid #ededea; }
-        .files li:first-child { border-top: 1px solid #ededea; }
+        .files li {
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .files li:first-child {
+            border-top: 1px solid #f0f0f0;
+        }
 
         .files a {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 20px 4px;
+            padding: 18px 0;
             text-decoration: none;
             color: #1a1a1a;
-            transition: all 0.15s;
-        }
-
-        .files a:hover { padding-left: 12px; }
-        .files a:hover .file-name { color: #0055bb; }
-        .files a:hover .arrow { opacity: 1; transform: translateX(0); }
-
-        .file-left {
-            display: flex;
-            flex-direction: column;
-            gap: 3px;
-            min-width: 0;
-        }
-
-        .file-name {
-            font-family: 'Source Serif 4', Georgia, serif;
-            font-size: 18px;
-            font-weight: 400;
+            font-size: 17px;
             transition: color 0.15s;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
         }
 
-        .file-path {
-            font-size: 13px;
-            color: #bbb;
+        .files a:hover {
+            color: #0066cc;
         }
 
-        .file-right {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-            flex-shrink: 0;
-        }
-
-        .file-size {
-            font-size: 13px;
+        .files .meta {
+            font-size: 14px;
             color: #bbb;
             font-variant-numeric: tabular-nums;
         }
 
-        .arrow {
-            color: #0055bb;
-            opacity: 0;
-            transform: translateX(-4px);
-            transition: all 0.15s;
-        }
-
-        .loading, .empty, .error-state {
+        /* States */
+        .loading, .empty, .error {
             padding: 80px 0;
             text-align: center;
-            color: #aaa;
-            font-size: 15px;
-        }
-
-        .loading-dot {
-            display: inline-block;
-            animation: pulse 1.2s ease-in-out infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% { opacity: 0.3; }
-            50% { opacity: 1; }
+            font-size: 16px;
+            color: #999;
         }
 
         .config-notice {
-            background: #fff;
-            border: 1px solid #e8e4d8;
-            border-left: 3px solid #c9a84c;
-            border-radius: 4px;
-            padding: 18px 20px;
+            background: #fffbeb;
+            border: 1px solid #f0e6c0;
+            border-radius: 6px;
+            padding: 18px;
             margin-bottom: 28px;
-            font-size: 14px;
-            color: #777;
-            line-height: 1.7;
+            font-size: 15px;
+            color: #92700c;
+            line-height: 1.6;
         }
 
         .config-notice code {
-            font-family: SFMono-Regular, Menlo, Consolas, monospace;
-            font-size: 13px;
-            background: #f5f4f0;
-            padding: 2px 6px;
+            font-family: SFMono-Regular, Menlo, monospace;
+            font-size: 14px;
+            background: rgba(0,0,0,0.05);
+            padding: 1px 5px;
             border-radius: 3px;
-            color: #1a1a1a;
         }
 
         footer {
             padding: 36px 0;
-            margin-top: 80px;
-            border-top: 2px solid #1a1a1a;
+            margin-top: 72px;
+            border-top: 1px solid #e5e5e5;
+            font-size: 14px;
+            color: #bbb;
             display: flex;
             justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 12px;
         }
 
-        .footer-left { font-size: 13px; color: #bbb; }
-
-        .footer-links { display: flex; gap: 20px; }
-
-        .footer-links a {
-            font-size: 13px;
-            color: #aaa;
+        footer a {
+            color: #999;
             text-decoration: none;
-            transition: color 0.15s;
         }
 
-        .footer-links a:hover { color: #1a1a1a; }
+        footer a:hover {
+            color: #1a1a1a;
+        }
 
-        @media (max-width: 600px) {
-            .container { padding: 0 20px; }
-            header { padding: 56px 0 36px; }
-            h1 { font-size: 32px; }
-            .stats { gap: 20px; }
+        /* Scale up for large monitors */
+        @media (min-width: 1400px) {
+            .container { max-width: 1100px; }
+            h1 { font-size: 42px; }
+            .subtitle { font-size: 18px; }
+            .stats { font-size: 16px; }
+            .files a { font-size: 18px; padding: 22px 0; }
+            .files .meta { font-size: 15px; }
+            input[type="text"] { font-size: 17px; padding: 12px 16px; max-width: 400px; }
+            .toolbar a { font-size: 16px; }
+        }
+
+        @media (min-width: 1800px) {
+            .container { max-width: 1280px; }
+            h1 { font-size: 48px; }
+            .subtitle { font-size: 19px; }
+            .files a { font-size: 20px; padding: 24px 0; }
+            .files .meta { font-size: 16px; }
+        }
+
+        @media (max-width: 480px) {
+            header { padding: 48px 0 32px; }
+            h1 { font-size: 28px; }
             .toolbar { flex-direction: column; align-items: stretch; }
-            .search-wrap { max-width: none; }
-            .file-name { font-size: 16px; }
-            .file-size { display: none; }
+            input[type="text"] { max-width: none; }
         }
     </style>
 </head>
@@ -272,51 +206,28 @@
             <h1>TheInvestmentWiki</h1>
             <p class="subtitle">Open source equity research, maintained by the community.</p>
             <div class="stats">
-                <div>
-                    <div class="stat-value" id="file-count">—</div>
-                    <div class="stat-label">Reports</div>
-                </div>
-                <div>
-                    <div class="stat-value" id="contributor-count">—</div>
-                    <div class="stat-label">Contributors</div>
-                </div>
-                <div>
-                    <div class="stat-value" id="last-updated">—</div>
-                    <div class="stat-label">Last updated</div>
-                </div>
+                <span><strong id="file-count">—</strong> reports</span>
+                <span><strong id="contributor-count">—</strong> contributors</span>
+                <span>updated <strong id="last-updated">—</strong></span>
             </div>
         </header>
 
         <div class="toolbar">
-            <div class="search-wrap">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/>
-                </svg>
-                <input type="text" id="search" placeholder="Search reports..." oninput="filterFiles()">
-            </div>
-            <a class="contribute-btn" id="contribute-link" href="#" target="_blank">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M12 5v14M5 12h14"/>
-                </svg>
-                Contribute
-            </a>
+            <input type="text" id="search" placeholder="Search..." oninput="filterFiles()">
+            <a id="contribute-link" href="#" target="_blank">+ Add research</a>
         </div>
 
         <div class="config-notice" id="config-notice" style="display:none;">
-            Set <code>REPO_OWNER</code> and <code>REPO_NAME</code> at the bottom of this file to connect your GitHub repo.
+            Set <code>REPO_OWNER</code> and <code>REPO_NAME</code> at the bottom of this file to connect to your GitHub repo.
         </div>
 
         <div id="file-list">
-            <div class="loading">
-                <span class="loading-dot">Loading research files...</span>
-            </div>
+            <div class="loading">Loading...</div>
         </div>
 
         <footer>
-            <div class="footer-left">TheInvestmentWiki</div>
-            <div class="footer-links">
-                <a id="github-link" href="#" target="_blank">GitHub</a>
-            </div>
+            <span>TheInvestmentWiki</span>
+            <a id="github-link" href="#" target="_blank">GitHub</a>
         </footer>
     </div>
 
@@ -371,7 +282,7 @@
 
                 renderFiles(allFiles);
             } catch (e) {
-                el.innerHTML = '<div class="error-state">Could not load files. Check that the repo is public.</div>';
+                el.innerHTML = '<div class="error">Could not load files. Check that the repo is public.</div>';
             }
         }
 
@@ -391,30 +302,14 @@
                 a.href = BASE + f.name;
                 a.target = '_blank';
 
-                const name = f.name
-                    .replace('.html', '')
-                    .replace(/[-_]/g, ' ')
-                    .replace(/\b\w/g, c => c.toUpperCase());
-
+                const name = f.name.replace('.html', '').replace(/[-_]/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
                 const size = f.size > 1024 * 1024
                     ? (f.size / (1024 * 1024)).toFixed(1) + ' MB'
                     : f.size > 1024
                     ? (f.size / 1024).toFixed(0) + ' KB'
                     : f.size + ' B';
 
-                a.innerHTML = `
-                    <div class="file-left">
-                        <span class="file-name">${name}</span>
-                        <span class="file-path">${f.name}</span>
-                    </div>
-                    <div class="file-right">
-                        <span class="file-size">${size}</span>
-                        <svg class="arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M5 12h14M12 5l7 7-7 7"/>
-                        </svg>
-                    </div>
-                `;
-
+                a.innerHTML = `<span>${name}</span><span class="meta">${size}</span>`;
                 li.appendChild(a);
                 ul.appendChild(li);
             });
